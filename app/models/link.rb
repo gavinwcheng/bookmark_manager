@@ -1,4 +1,5 @@
-require './data_mapper_setup'
+# require './data_mapper_setup'
+# require 'data_mapper'
 
 class Link
   include DataMapper::Resource
@@ -8,5 +9,3 @@ class Link
   property :url, String
 
 end
-
-DataMapper.finalize

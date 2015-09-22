@@ -5,9 +5,10 @@ ruby '2.1.5'
 gem 'sinatra'
 
 group :test do
-  gem 'rspec'ruby
+  gem 'rspec'
   gem 'capybara'
   gem 'rspec-sinatra'
   gem 'data_mapper'
   gem 'dm-postgres-adapter'
+  gem 'database_cleaner'
 end

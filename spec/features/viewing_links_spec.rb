@@ -1,5 +1,5 @@
 # require 'spec_helper'
-require './app/models/link'
+# require './app/models/link'
 
 feature 'viewing links' do
   scenario 'I can see existing links on the links page' do
@@ -7,7 +7,7 @@ feature 'viewing links' do
     visit '/links'
     expect(page.status_code).to eq 200
     within 'ul#links' do
-      expect(page).to have_content 'Makers Academy'
+      expect(page).to have_content("Makers Academy")
     end
   end
 end
