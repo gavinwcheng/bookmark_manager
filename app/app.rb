@@ -18,7 +18,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/links' do
-    link = Link.create(url: params[:url], title: params[:title])
+    link = Link.new(url: params[:url], title: params[:title])
     tag = Tag.create(name: params[:tag])
     link.tags << tag
     link.save
@@ -27,8 +27,11 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/tags/:name' do
-    tag = Tag.first(name: params[:name])
+    p params[:name]
+    tag = Tag.first name: params[:name]
+    p tag
     @links = tag ? tag.links : []
+    p @links
     erb :'links/index'
   end
 
