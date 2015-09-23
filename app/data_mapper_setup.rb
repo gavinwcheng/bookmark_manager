@@ -9,10 +9,6 @@ else
   DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
 end
 
-
-
-
 DataMapper.finalize
-
 
 DataMapper.auto_upgrade!
