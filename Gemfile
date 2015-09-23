@@ -5,6 +5,7 @@ ruby '2.1.5'
 gem 'sinatra'
 gem 'data_mapper'
 gem 'dm-postgres-adapter'
+gem 'bcrypt'
 
 group :test do
   gem 'rspec'
