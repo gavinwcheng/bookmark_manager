@@ -1,11 +1,13 @@
 require 'sinatra/base'
+require 'sinatra/flash'
 require_relative 'data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
   # set :views, proc { File.join(root, '..', 'views') }
 
-enable :sessions
-set :session_secret, 'super secret'
+  enable :sessions
+  set :session_secret, 'super secret'
+  register Sinatra::Flash
 
   get '/' do
     erb :homepage
@@ -13,9 +15,6 @@ set :session_secret, 'super secret'
 
   get '/links' do
     @links = Link.all
-    if User.first(id: session[:user_id])
-      @email = User.first(id: session[:user_id]).email
-    end
     erb :'links/index'
   end
 
@@ -31,7 +30,6 @@ set :session_secret, 'super secret'
       link.tags << tag
     end
     link.save
-    # Link.create(url: params[:url], title: params[:title])
     redirect '/links'
   end
 
@@ -42,16 +40,29 @@ set :session_secret, 'super secret'
   end
 
   get '/users/new' do
+    @user = User.new
     erb :'users/new'
   end
 
   post '/users' do
-    user = User.create(email: params[:email],
-                password: params[:password])
-    session[:user_id] = user.id
-    redirect to('/links')
+    @user = User.new(email: params[:email],
+            password: params[:password],
+            password_confirmation: params[:password_confirmation])
+    if @user.save
+      session[:user_id] =  @user.id
+      redirect to('/links')
+    else
+      flash.now[:notice] = 'Password and confirmation password do not match'
+      erb :'users/new'
+    end
   end
 
   # start the server if ruby file executed directly
   run! if app_file == $0
+
+  helpers do
+    def current_user
+      current_user ||= User.first(id: session[:user_id])
+    end
+  end
 end

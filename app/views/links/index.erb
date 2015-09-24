@@ -1,14 +1,10 @@
 <h1> Links </h1>
-<% if @email %>
-  'Welcome, <%= @email %>'
-<% else %>
-  'Welcome, guest'
-<% end %>
-<ul id="links">
-  <% @links.each do |link| %>
-    <li>
-      Title: <%= link.title %>
-      URL: <%= link.url %>
-    </li>
-  <% end %>
-</ul>
+
+  <ul id="links">
+    <% @links.each do |link| %>
+      <li>
+        Title: <%= link.title %>
+        URL: <%= link.url  %>
+      </li>
+    <% end %>
+  </ul>
